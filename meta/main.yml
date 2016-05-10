@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: John Paul Newman
+  description: ELK Kibana
+  license: license (BSD, MIT)
+  min_ansible_version: 2.0
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  galaxy_tags:
+    - elk
+    - kibana
+
+dependencies:
+  - jpnewman.nginx
+  - jpnewman.json
