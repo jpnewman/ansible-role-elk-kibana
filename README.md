@@ -1,5 +1,7 @@
 # jpnewman.elk-kibana
 
+[![Build Status](https://travis-ci.org/jpnewman/ansible-role-elk-kibana.svg?branch=master)](https://travis-ci.org/jpnewman/ansible-role-elk-kibana)
+
 This is a Ansible role to installs [kibana](https://www.elastic.co/products/kibana)
 
 This role is based on role ```kibana``` [https://github.com/rueian/ansible-elk-example.git]() by Rueian
