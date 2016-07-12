@@ -44,12 +44,14 @@
 - shell: if [ -e /tmp/beats-dashboards-{{ kibana_beats_dashboard_version }} ]; then echo yes; else echo no; fi;
   register: beats_dashboard_version_exists
   always_run: True
+  tags: ['config']
 
 - name: Download Beats Dashboard
   get_url:
     url: https://download.elastic.co/beats/dashboards/beats-dashboards-{{ kibana_beats_dashboard_version }}.zip
     dest: /tmp
   when: beats_dashboard_version_exists.stdout == 'no'
+  tags: ['config']
 
 - name: Unarchive Beats Dashboard zip
   unarchive:
@@ -57,37 +59,43 @@
     dest: /tmp
     copy: no
   when: beats_dashboard_version_exists.stdout == 'no'
+  tags: ['config']
 
 - name: Install Beats Dashboard
   shell: ./load.sh -url {{ kibana_elasticsearch_url }}
   args:
     chdir: /tmp/beats-dashboards-{{ kibana_beats_dashboard_version }}
   when: beats_dashboard_version_exists.stdout == 'no'
+  tags: ['config']
 
 - name: Import visualizations
   become: no
   local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/.kibana/visualization/{{ (item | basename | splitext)[0] }} -T {{ item }}
   with_fileglob: kibana_visaulizations_folder
+  tags: ['config']
 
 - name: Import dashboards
   become: no
   local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/.kibana/dashboard/{{ (item | basename | splitext)[0] }} -T {{ item }}
   with_fileglob: kibana_dashboards_folder
+  tags: ['config']
 
 - debug: msg='shell curl -XPUT {{ kibana_elasticsearch_url }}/_template/{{ (item | basename | splitext)[0] }} -T {{ item }}'
   with_fileglob: kibana_elasticsearch_templates
+  tags: ['config']
 
 - name: Import templates
   become: no
   local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/_template/{{ (item | basename | splitext)[0] }} -T {{ item }}
   with_fileglob: kibana_elasticsearch_templates
-
+  tags: ['config']
 
 - name: Check nginx config
   become: yes
   command: service nginx configtest
   register: result
   notify: restart nginx
+  tags: ['config']
 
 - name: Flush handlers
   meta: flush_handlers
