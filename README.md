@@ -5,7 +5,7 @@
 
 This is a Ansible role to installs [kibana](https://www.elastic.co/products/kibana)
 
-This role is based on role ```kibana``` [https://github.com/rueian/ansible-elk-example.git]() by Rueian
+This role is based on role ```kibana``` <https://github.com/rueian/ansible-elk-example.git> by Rueian
 
 For more information look at the following readme: -
 
