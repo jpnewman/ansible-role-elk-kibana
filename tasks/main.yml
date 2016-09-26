@@ -4,7 +4,7 @@
 
 - name: Download kibana zip
   get_url:
-    url: https://download.elastic.co/kibana/kibana/kibana-{{ kibana_version }}-{{ kibana_platform }}.zip
+    url: "{{ kibana_download_url }}"
     dest: /tmp
   when: version_exists.stdout == 'no'
 
