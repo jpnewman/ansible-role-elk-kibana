@@ -10,7 +10,7 @@
 
 - name: Unarchive kibana zip
   unarchive:
-    src: /tmp/kibana-{{ kibana_version }}-{{ kibana_platform }}.zip
+    src: /tmp/{{ kibana_package }}.{{ kibana_package_ext }}
     dest: /opt
     copy: no
   when: version_exists.stdout == 'no'
@@ -22,7 +22,7 @@
 - name: Link new kibana folder
   file:
     dest: /opt/kibana
-    src: /opt/kibana-{{ kibana_version }}-{{ kibana_platform }}
+    src: /opt/{{ kibana_package }}
     state: link
     force: yes
   when: version_exists.stdout == 'no'

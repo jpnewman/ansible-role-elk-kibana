@@ -1,6 +1,8 @@
 kibana_version: 4.5.0
 kibana_platform: linux-x64
-kibana_download_url: "https://download.elastic.co/kibana/kibana/kibana-{{ kibana_version }}-{{ kibana_platform }}.zip"
+kibana_package: kibana-{{ kibana_version }}-{{ kibana_platform }}
+kibana_package_ext: zip
+kibana_download_url: "https://download.elastic.co/kibana/kibana/{{ kibana_package }}.{{ kibana_package_ext }}"
 
 kibana_elasticsearch_url: 'http://elk-server:9200'
 
