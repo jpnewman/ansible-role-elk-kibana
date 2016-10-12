@@ -1,6 +1,7 @@
 - shell: if [ -e /opt/kibana-{{ kibana_version }}-{{ kibana_platform }} ]; then echo yes; else echo no; fi;
   register: version_exists
   always_run: True
+  changed_when: False
 
 - name: Download kibana zip
   get_url:
@@ -38,20 +39,21 @@
   template: src=kibana.yml.j2 dest=/opt/kibana/config/kibana.yml owner=root group=root mode=0644
   notify: restart kibana
 
-- name: start kibana
+- name: Start kibana
   service: name=kibana4 state=started enabled=yes
 
 - shell: if [ -e /tmp/beats-dashboards-{{ kibana_beats_dashboard_version }} ]; then echo yes; else echo no; fi;
   register: beats_dashboard_version_exists
   always_run: True
-  tags: ['config']
+  changed_when: False
+  tags: ['kibana_config']
 
 - name: Download Beats Dashboard
   get_url:
     url: https://download.elastic.co/beats/dashboards/beats-dashboards-{{ kibana_beats_dashboard_version }}.zip
     dest: /tmp
   when: beats_dashboard_version_exists.stdout == 'no'
-  tags: ['config']
+  tags: ['kibana_config']
 
 - name: Unarchive Beats Dashboard zip
   unarchive:
@@ -59,43 +61,46 @@
     dest: /tmp
     copy: no
   when: beats_dashboard_version_exists.stdout == 'no'
-  tags: ['config']
+  tags: ['kibana_config']
 
 - name: Install Beats Dashboard
   shell: ./load.sh -url {{ kibana_elasticsearch_url }}
   args:
     chdir: /tmp/beats-dashboards-{{ kibana_beats_dashboard_version }}
   when: beats_dashboard_version_exists.stdout == 'no'
-  tags: ['config']
+  tags: ['kibana_config']
 
 - name: Import visualizations
   become: no
   local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/.kibana/visualization/{{ (item | basename | splitext)[0] }} -T {{ item }}
   with_fileglob: kibana_visaulizations_folder
-  tags: ['config']
+  tags: ['kibana_config']
 
 - name: Import dashboards
   become: no
   local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/.kibana/dashboard/{{ (item | basename | splitext)[0] }} -T {{ item }}
   with_fileglob: kibana_dashboards_folder
-  tags: ['config']
+  tags: ['kibana_config']
 
-- debug: msg='shell curl -XPUT {{ kibana_elasticsearch_url }}/_template/{{ (item | basename | splitext)[0] }} -T {{ item }}'
-  with_fileglob: kibana_elasticsearch_templates
-  tags: ['config']
+- name: Import searches
+  become: no
+  local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/.kibana/search/{{ (item | basename | splitext)[0] }} -T {{ item }}
+  with_fileglob: kibana_searches_folder
+  tags: ['kibana_config']
 
 - name: Import templates
   become: no
   local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/_template/{{ (item | basename | splitext)[0] }} -T {{ item }}
   with_fileglob: kibana_elasticsearch_templates
-  tags: ['config']
+  tags: ['kibana_config']
 
 - name: Check nginx config
   become: yes
   command: service nginx configtest
   register: result
   notify: restart nginx
-  tags: ['config']
+  changed_when: False
+  tags: ['kibana_config']
 
 - name: Flush handlers
   meta: flush_handlers

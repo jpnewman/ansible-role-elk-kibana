@@ -1,0 +1,16 @@
+{
+    "sort": [
+        "@timestamp", 
+        "desc"
+    ], 
+    "hits": 0, 
+    "description": "Artifactory Tomcat Logs", 
+    "title": "Artifactory Tomcat Logs", 
+    "version": 1, 
+    "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"artifactory-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"artifactory-*\",\"key\":\"fields.filebeat_config\",\"negate\":false,\"value\":\"/etc/filebeat/conf.d/catalina.yml\"},\"query\":{\"match\":{\"fields.filebeat_config\":{\"query\":\"/etc/filebeat/conf.d/catalina.yml\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"artifactory-*\",\"key\":\"fields.filebeat_config\",\"negate\":false,\"value\":\"/etc/filebeat/conf.d/tomcat.yml\"},\"query\":{\"match\":{\"fields.filebeat_config\":{\"query\":\"/etc/filebeat/conf.d/tomcat.yml\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+    }, 
+    "columns": [
+        "logmessage"
+    ]
+}

@@ -1,252 +1,247 @@
-﻿{
+{
     "mappings": {
         "_default_": {
             "_all": {
-                "omit_norms": true,
+                "omit_norms": true, 
                 "enabled": true
-            },
+            }, 
             "properties": {
                 "@timestamp": {
-                    "type": "date",
+                    "type": "date", 
                     "format": "strict_date_optional_time||epoch_millis"
-                },
+                }, 
                 "datestamp": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "clientip": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "message": {
-                    "index": "analyzed",
+                    "index": "analyzed", 
                     "type": "string"
-                },
+                }, 
                 "index": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "source": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "input_type": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "index_type": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "version": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "msg": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "type": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
-                "timestamp_from_log": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
-                    "type": "string"
-                },
+                }, 
                 "tags": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "beat": {
                     "properties": {
                         "hostname": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "name": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
                         }
                     }
-                },
+                }, 
                 "repo": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "host": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "prerelease": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "user": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "offset": {
-                    "doc_values": "true",
+                    "doc_values": "true", 
                     "type": "long"
-                },
+                }, 
                 "remote": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "shipper_ip": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "count": {
                     "type": "long"
-                },
+                }, 
                 "shipper": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "package": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "geoip": {
                     "properties": {
                         "longitude": {
                             "type": "double"
-                        },
+                        }, 
                         "region_name": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "country_code2": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "ip": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "area_code": {
                             "type": "long"
-                        },
+                        }, 
                         "continent_code": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "country_code3": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "city_name": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "postal_code": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "dma_code": {
                             "type": "long"
-                        },
+                        }, 
                         "country_name": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "latitude": {
                             "type": "double"
-                        },
+                        }, 
                         "timezone": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "real_region_name": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "location": {
                             "type": "geo_point"
                         }
                     }
-                },
+                }, 
                 "request_type": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
-                },
+                }, 
                 "fields": {
                     "properties": {
                         "elasticsearch_index": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "type": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
-                        },
+                        }, 
                         "app_id": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
                             "type": "string"
                         }
                     }
-                },
+                }, 
                 "@version": {
-                    "ignore_above": 1024,
-                    "index": "not_analyzed",
+                    "ignore_above": 1024, 
+                    "index": "not_analyzed", 
                     "type": "string"
                 }
-            },
+            }, 
             "dynamic_templates": [
                 {
                     "template1": {
                         "mapping": {
-                            "ignore_above": 1024,
-                            "index": "not_analyzed",
-                            "type": "{dynamic_type}",
+                            "ignore_above": 1024, 
+                            "index": "not_analyzed", 
+                            "type": "{dynamic_type}", 
                             "doc_values": true
-                        },
+                        }, 
                         "match": "*"
                     }
                 }
             ]
         }
-    },
-    "aliases": {},
-    "order": 0,
-    "template": "artifactory-*",
+    }, 
+    "aliases": {}, 
+    "order": 0, 
+    "template": "artifactory-*", 
     "settings": {
         "index": {
             "refresh_interval": "5s"

@@ -10,5 +10,6 @@ kibana_beats_dashboard_version: 1.2.1
 apt_cache_valid_time: 600
 
 kibana_dashboards_folder: kibana/dashboards/*.json
+kibana_searches_folder: kibana/searches/*.json
 kibana_visaulizations_folder: kibana/visualizations/*.json
 kibana_elasticsearch_templates: kibana/templates/*.json

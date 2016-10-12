@@ -1,12 +1,12 @@
+> JSON files should be in UTF-8 format, without a BOM.
+
 # Export Kibana data
 
 ## Export new searches
 
 ~~~
-curl -s -X GET http://10.10.10.10:9200/.kibana/searches/Error/_source > ./searches/Errors.json
+curl -s -X GET http://10.10.10.10:9200/.kibana/search/Error/_source > ./searches/Errors.json
 ~~~
-
-**TODO** Exporting searches is not working!!!
 
 ## Export new visualization
 

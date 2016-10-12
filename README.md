@@ -22,10 +22,14 @@ Ansible 2.x
 |---|---|---|
 |```kibana_version```|4.5.0|
 |```kibana_platform```|linux-x64|
+|```kibana_package```|kibana-{{ kibana_version }}-{{ kibana_platform }}|
+|```kibana_package_ext```|zip|
+|```kibana_download_url```| "https://download.elastic.co/kibana/kibana/{{ kibana_package }}.{{ kibana_package_ext }}"|
 |```kibana_elasticsearch_url```|'http://elk-server:9200'|
 |```kibana_beats_dashboard_version```|1.2.1|
 |```apt_cache_valid_time```|600|
 |```kibana_dashboards_folder```|kibana/dashboards/*.json|
+|```kibana_searches_folder```|kibana/searches/*.json|
 |```kibana_visaulizations_folder```|kibana/visualizations/*.json|
 |```kibana_elasticsearch_templates```|kibana/templates/*.json|
 
@@ -38,7 +42,7 @@ Ansible 2.x
 
     - hosts: servers
       roles:
-         - { role: jpnewman.elk-kibana, tags: ["init"] }
+         - { role: jpnewman.elk-kibana, tags: ["kibana"] }
 
 ## License
 

@@ -1,0 +1,17 @@
+{
+    "sort": [
+        "@timestamp", 
+        "desc"
+    ], 
+    "hits": 0, 
+    "description": "Artifactory Denied Requests", 
+    "title": "Artifactory Denied Requests", 
+    "version": 1, 
+    "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"artifactory-*\",\"query\":{\"query_string\":{\"query\":\"DENIED\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"artifactory-*\",\"key\":\"fields.filebeat_config\",\"value\":\"/etc/filebeat/conf.d/artifactory.yml\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"fields.filebeat_config\":{\"query\":\"/etc/filebeat/conf.d/artifactory.yml\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+    }, 
+    "columns": [
+        "user", 
+        "request_type"
+    ]
+}

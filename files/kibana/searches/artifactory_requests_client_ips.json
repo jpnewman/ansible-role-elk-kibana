@@ -1,0 +1,20 @@
+{
+    "sort": [
+        "@timestamp", 
+        "desc"
+    ], 
+    "hits": 0, 
+    "description": "Artifactory Requests Client IPs", 
+    "title": "Artifactory Requests Client IPs", 
+    "version": 1, 
+    "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"artifactory-*\",\"query\":{\"query_string\":{\"query\":\"host:artifactory-02 AND source:\\\"/opt/artifactory/logs/access.log\\\" AND _exists_:clientip\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+    }, 
+    "columns": [
+        "geoip.source", 
+        "clientip", 
+        "user", 
+        "request_type", 
+        "geoip.country_name"
+    ]
+}
