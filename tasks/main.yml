@@ -1,6 +1,6 @@
 - shell: if [ -e /opt/kibana-{{ kibana_version }}-{{ kibana_platform }} ]; then echo yes; else echo no; fi;
   register: version_exists
-  always_run: True
+  check_mode: no
   changed_when: False
 
 - name: Download kibana zip
@@ -39,12 +39,13 @@
   template: src=kibana.yml.j2 dest=/opt/kibana/config/kibana.yml owner=root group=root mode=0644
   notify: restart kibana
 
-- name: Start kibana
+- name: Starting kibana
   service: name=kibana4 state=started enabled=yes
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - shell: if [ -e /tmp/beats-dashboards-{{ kibana_beats_dashboard_version }} ]; then echo yes; else echo no; fi;
   register: beats_dashboard_version_exists
-  always_run: True
+  check_mode: no
   changed_when: False
   tags: ['kibana_config']
 
@@ -73,7 +74,7 @@
 - name: Import visualizations
   become: no
   local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/.kibana/visualization/{{ (item | basename | splitext)[0] }} -T {{ item }}
-  with_fileglob: kibana_visaulizations_folder
+  with_fileglob: '{{ kibana_visaulizations_folder }}'
   tags: ['kibana_config']
 
 - name: Import dashboards
