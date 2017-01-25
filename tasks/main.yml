@@ -74,7 +74,7 @@
 - name: Import visualizations
   become: no
   local_action: shell curl -XPUT {{ kibana_elasticsearch_url }}/.kibana/visualization/{{ (item | basename | splitext)[0] }} -T {{ item }}
-  with_fileglob: '{{ kibana_visaulizations_folder }}'
+  with_fileglob: kibana_visaulizations_folder
   tags: ['kibana_config']
 
 - name: Import dashboards
