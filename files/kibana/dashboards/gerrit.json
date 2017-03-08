@@ -1,0 +1,15 @@
+{
+    "hits": 0, 
+    "timeFrom": "now-24h", 
+    "timeRestore": true, 
+    "description": "", 
+    "title": "Gerrit", 
+    "uiStateJSON": "{\"P-1\":{\"vis\":{\"legendOpen\":false}}}", 
+    "panelsJSON": "[{\"id\":\"Gerrit:-Event-Per-Repo\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":12,\"size_y\":4,\"col\":1,\"row\":1},{\"id\":\"Gerrit:-Event-Authors\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":12,\"size_y\":4,\"col\":1,\"row\":5},{\"id\":\"Gerrit:-Event-Types\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":6,\"size_y\":4,\"col\":1,\"row\":9}]", 
+    "timeTo": "now", 
+    "optionsJSON": "{\"darkTheme\":false}", 
+    "version": 1, 
+    "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}]}"
+    }
+}

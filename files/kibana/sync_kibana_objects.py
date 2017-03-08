@@ -36,6 +36,7 @@ FOLDER_OBJECT_KEY_DICT = {
         "include": [
             "^artifactory_.*$",
             "^redis-.*$"
+            "^gerrit-.*$"
         ]
     },
     "templates": {
@@ -49,6 +50,14 @@ FOLDER_OBJECT_KEY_DICT = {
             "^triggered_watches$",
             "^watch_history$",
             "^watches$"
+        ]
+    },
+    "mapping": {
+        "index": "_mapping",
+        "type": "",
+        "command": "",
+        "exclude": [
+            "^.*$"
         ]
     }
 }
@@ -179,7 +188,8 @@ def report_api_response(json_data):
 def download_via_api(es_url_data,
                      elasticsearch_host,
                      max_size,
-                     folder):
+                     folder,
+                     save_all=False):
     """Download from kibana."""
     if not os.path.isdir(folder):
         os.makedirs(folder)
@@ -202,13 +212,16 @@ def download_via_api(es_url_data,
     data = kibana_api_request(url, 'GET')
 
     if es_command:
-        save_templates(es_url_data, data, folder)
+        save_templates(es_url_data, data, folder, save_all)
     else:
-        save_objects(es_url_data, data, folder)
+        save_objects(es_url_data, data, folder, save_all)
 
 
-def should_save_data(es_url_data, test_string):
+def should_save_data(es_url_data, test_string, save_all=False):
     """Filter Data."""
+    if save_all:
+        return True
+
     if 'include' not in es_url_data and 'exclude' not in es_url_data:
         sys.stdout.write('+ ')
         return True
@@ -232,13 +245,13 @@ def should_save_data(es_url_data, test_string):
     return True
 
 
-def save_objects(es_url_data, data, folder):
+def save_objects(es_url_data, data, folder, save_all=False):
     """Save Objects."""
     print("Total '%s' objects found: %s" % (colorText(es_url_data['type'], WHITE),
                                             colorText(data['hits']['total'], WHITE)))
 
     for obj in data['hits']['hits']:
-        if should_save_data(es_url_data, obj['_id']):
+        if should_save_data(es_url_data, obj['_id'], save_all):
             print_color_text(obj['_id'], GREEN)
 
             ouput_file_path = os.path.join(folder, obj['_id']) + '.json'
@@ -250,12 +263,12 @@ def save_objects(es_url_data, data, folder):
             print(obj['_id'])
 
 
-def save_templates(es_url_data, data, folder):
+def save_templates(es_url_data, data, folder, save_all=False):
     """Save Templates."""
     print("Total templates found: %d" % len(data))
 
     for template, template_data in data.iteritems():
-        if should_save_data(es_url_data, template):
+        if should_save_data(es_url_data, template, save_all):
             print_color_text(template, GREEN)
             ouput_file_path = os.path.join(folder, template) + '.json'
 
@@ -318,6 +331,10 @@ def main():
                         nargs='?',
                         default='http://10.10.10.10:9200',
                         help='Elasticsearch Host')
+    parser.add_argument('--download',
+                        action='store_true',
+                        default=True,
+                        help='Download objects and templates from kibana')
     parser.add_argument('--upload',
                         action='store_true',
                         default=False,
@@ -326,11 +343,18 @@ def main():
                         action='store_true',
                         default=False,
                         help='Delete objects and templates from kibana')
+    parser.add_argument('--save_all',
+                        action='store_true',
+                        default=False,
+                        help='Save All Data')
     parser.add_argument('--max_size',
                         type=int,
                         default='1024',
                         help='Elasticsearch Max Hit Size')
     args = parser.parse_args()
+
+    if args.upload or args.delete:
+        args.download = False
 
     args.elasticsearch_host = args.elasticsearch_host.rstrip('/')
 
@@ -340,7 +364,13 @@ def main():
     for folder, es_url_data in FOLDER_OBJECT_KEY_DICT.iteritems():
         sub_header(folder)
 
-        if args.upload:
+        if args.download:
+            download_via_api(es_url_data,
+                             args.elasticsearch_host,
+                             args.max_size,
+                             folder,
+                             args.save_all)
+        elif args.upload:
             upload_via_api(es_url_data,
                            args.elasticsearch_host,
                            folder)
@@ -348,11 +378,6 @@ def main():
             delete_via_api(es_url_data,
                            args.elasticsearch_host,
                            folder)
-        else:
-            download_via_api(es_url_data,
-                             args.elasticsearch_host,
-                             args.max_size,
-                             folder)
 
 
 if __name__ == "__main__":

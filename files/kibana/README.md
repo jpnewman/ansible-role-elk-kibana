@@ -22,27 +22,39 @@ It has the following positional arguments: -
 |Variables|Description|Default|
 |---|---|---|
 |```elasticsearch_host```|Elasticsearch Host|http://10.10.10.10:9200|
+|```--upload```|Download from kibana|true|
 |```--upload```|Uploads to kibana|false|
 |```--delete```|Delete from kibana|false|
+|```--save_all```|Saves all data. Download only.|false|
 |```--max_size```|Elasticsearch Max Hit Size|1024|
+
+## Setup
+
+~~~
+chmod u+x sync_kibana_objects.py
+~~~
 
 ### Download
 Downloads objects and templates from remote kibana to local.
 
 ~~~
-python ./sync_kibana_objects.py http://elk-server:9200
+./sync_kibana_objects.py http://elk-server:9200
+~~~
+
+~~~
+./sync_kibana_objects.py http://elk-server:9200 --download
 ~~~
 
 ### Upload
 Uploads local objects and templates to remote kibana.
 
 ~~~
-python ./sync_kibana_objects.py http://elk-server:9200 --upload
+./sync_kibana_objects.py http://elk-server:9200 --upload
 ~~~
 
 ### Delete
 Deletes local objects and templates from remote kibana.
 
 ~~~
-python ./sync_kibana_objects.py http://elk-server:9200 --delete
+./sync_kibana_objects.py http://elk-server:9200 --delete
 ~~~

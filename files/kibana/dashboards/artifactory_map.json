@@ -1,0 +1,13 @@
+{
+    "hits": 0, 
+    "timeRestore": false, 
+    "description": "Artifactory General Dashboard with Map", 
+    "title": "Artifactory-Map", 
+    "uiStateJSON": "{}", 
+    "panelsJSON": "[{\"col\":1,\"id\":\"artifactory_top25_packages\",\"panelIndex\":1,\"row\":1,\"size_x\":12,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"artifactory_request_types\",\"panelIndex\":2,\"row\":5,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"artifactory_repo\",\"panelIndex\":3,\"row\":5,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"artifactory_users\",\"panelIndex\":4,\"row\":8,\"size_x\":6,\"size_y\":2,\"type\":\"visualization\"},{\"col\":7,\"id\":\"artifactory_top_remotes\",\"panelIndex\":5,\"row\":8,\"size_x\":6,\"size_y\":2,\"type\":\"visualization\"},{\"id\":\"artifactory_geoip_map\",\"type\":\"visualization\",\"panelIndex\":6,\"size_x\":12,\"size_y\":7,\"col\":1,\"row\":10}]", 
+    "optionsJSON": "{\"darkTheme\":true}", 
+    "version": 1, 
+    "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"host:artifactory-02\"}}}]}"
+    }
+}
