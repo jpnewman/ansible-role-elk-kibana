@@ -3,13 +3,13 @@
   check_mode: no
   changed_when: False
 
-- name: Download kibana zip
+- name: "Download kibana {{ kibana_package_ext }}"
   get_url:
     url: "{{ kibana_download_url }}"
     dest: /tmp
   when: version_exists.stdout == 'no'
 
-- name: Unarchive kibana zip
+- name: "Unarchive kibana {{ kibana_package_ext }}"
   unarchive:
     src: /tmp/{{ kibana_package }}.{{ kibana_package_ext }}
     dest: /opt
@@ -30,20 +30,27 @@
   notify: restart kibana
 
 - name: Download kibana start script
-  get_url: url=https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4 dest=/etc/init.d
+  get_url:
+    url: "{{ kibana_init_script_url }}"
+    dest: /etc/init.d
 
 - name: Setup start script attrs
   file: path=/etc/init.d/kibana4 owner=root group=root mode=0755
 
 - name: Configuring Kibana
-  template: src=kibana.yml.j2 dest=/opt/kibana/config/kibana.yml owner=root group=root mode=0644
+  template:
+    src: kibana.yml.j2
+    dest: /opt/kibana/config/kibana.yml
+    owner: root
+    group: root
+    mode: 0644
   notify: restart kibana
 
 - name: Starting kibana
   service: name=kibana4 state=started enabled=yes
   ignore_errors: "{{ ansible_check_mode }}"
 
-- shell: if [ -e /tmp/beats-dashboards-{{ kibana_beats_dashboard_version }} ]; then echo yes; else echo no; fi;
+- shell: if [ -e /tmp/{{ kibana_beats_dashboard_file_title }} ]; then echo yes; else echo no; fi;
   register: beats_dashboard_version_exists
   check_mode: no
   changed_when: False
@@ -51,14 +58,14 @@
 
 - name: Download Beats Dashboard
   get_url:
-    url: https://download.elastic.co/beats/dashboards/beats-dashboards-{{ kibana_beats_dashboard_version }}.zip
+    url: "{{ kibana_beats_dashboard_url }}"
     dest: /tmp
   when: beats_dashboard_version_exists.stdout == 'no'
   tags: ['kibana_config']
 
-- name: Unarchive Beats Dashboard zip
+- name: "Unarchive Beats Dashboard {{ kibana_beats_dashboard_file_ext }}"
   unarchive:
-    src: /tmp/beats-dashboards-{{ kibana_beats_dashboard_version }}.zip
+    src: "/tmp/{{ kibana_beats_dashboard_file_title }}.{{ kibana_beats_dashboard_file_ext }}"
     dest: /tmp
     copy: no
   when: beats_dashboard_version_exists.stdout == 'no'
@@ -67,7 +74,7 @@
 - name: Install Beats Dashboard
   shell: ./load.sh -url {{ kibana_elasticsearch_url }}
   args:
-    chdir: /tmp/beats-dashboards-{{ kibana_beats_dashboard_version }}
+    chdir: /tmp/{{ kibana_beats_dashboard_file_title }}
   when: beats_dashboard_version_exists.stdout == 'no'
   tags: ['kibana_config']
 
